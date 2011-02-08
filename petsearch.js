@@ -1,4 +1,42 @@
-alert("Hi, the script is infact running on this page");
+if(document.getElementById('pet_id')){
+  findit=document.getElementById('pet_id');
+  while(findit.parentNode && findit.tagName!="FORM"){
+    if(findit.parentNode.tagName=="FORM")findit.parentNode.setAttribute("onSubmit", "return findpetfocus(false);");
+    findit=findit.parentNode;
+  }
+  findit=document.getElementById('pet_id');
+  table=document.createElement("TABLE");
+  table.border=0;
+  table.cellpadding=2;
+  table.cellspacing=2;
+  table.className="y-tables center";
+  table.id="searchbox";
+  findit.parentNode.insertBefore(table,findit);
+  row=document.createElement("TR");
+  td=document.createElement("TD");
+  row.appendChild(td);
+  td.appendChild(findit);
+  td=document.createElement("TD");
+  inp=document.createElement("INPUT");
+  inp.id="petsearch";
+  inp.size=10;
+  inp.type="text";
+  inp.setAttribute("onFocus", "findpetfocus('in');");
+  inp.setAttribute("onBlur", "findpetfocus('out');");
+  td.appendChild(inp);
+  row.appendChild(td);
+  td=document.createElement("TD");
+  inp=document.createElement("INPUT");
+  inp.className="a-button small";
+  inp.type="button";
+  inp.value="Search";
+  inp.setAttribute("onClick", "findpet(false);");
+  td.appendChild(inp);
+  row.appendChild(td);
+  table.appendChild(row);
+} else {
+  alert("Code executed but no pet dropdown was found, This must be used on a page including a dropdown of all of your pets. Another possible cause for this is that the page has been updated but this code has not.");
+}
 function findpet(avar){
  if(document.getElementById('pet_id') && document.getElementById('petsearch')){
    petlist=document.getElementById('pet_id');
@@ -48,11 +86,13 @@ function findpet(avar){
        td1.appendChild(text);
        td1.colSpan=2;
        td2=document.createElement("TD")
-       text=document.createElement("A")
-       text.href="http://www.aywas.com/pp/view/"+idsfound[x]+"/";
-       text.target="_blank";
-       text.appendChild(document.createTextNode("View"));
-       td2.appendChild(text);
+       if(idsfound[x]!=0){
+         text=document.createElement("A")
+         text.href="http://www.aywas.com/pp/view/"+idsfound[x]+"/";
+         text.target="_blank";
+         text.appendChild(document.createTextNode("View"));
+         td2.appendChild(text);
+       }
        if(x/2!=Math.round(x/2))row.className="row-even";
        if(x/2==Math.round(x/2))row.className="row-odd";
        row.id="result"+x;
@@ -79,4 +119,7 @@ function findpetfocus(avar){
    return false;
  }
  if(!avar && !searchterm.focused)return true;
+}
+function atest(){
+return false;
 }
