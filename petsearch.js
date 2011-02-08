@@ -1,3 +1,4 @@
+alert("Hi, the script is infact running on this page");
 function findpet(avar){
  if(document.getElementById('pet_id') && document.getElementById('petsearch')){
    petlist=document.getElementById('pet_id');
