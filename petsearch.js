@@ -120,6 +120,3 @@ function findpetfocus(avar){
  }
  if(!avar && !searchterm.focused)return true;
 }
-function atest(){
-return false;
-}
